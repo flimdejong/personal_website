@@ -165,7 +165,7 @@ export default function Personal() {
         <div className="flex-1">
           <p className="text-zinc-600 dark:text-zinc-400">
             Hi! I’m Flim, a robotics student specializing in software and AI.
-            I love building autonomous robotic systems, with a focus on developing the high-level autonomy. 
+            I love building autonomous robotic systems, with a focus on high-level autonomy. 
           </p>
         </div>
       </motion.section>
