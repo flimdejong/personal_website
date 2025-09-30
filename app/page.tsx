@@ -14,8 +14,7 @@ import Link from 'next/link'
 import { AnimatedBackground } from '@/components/ui/animated-background'
 import {
   PROJECTS,
-  WORK_EXPERIENCE,
-  BLOG_POSTS,
+  // BLOG_POSTS,
   EMAIL,
   SOCIAL_LINKS,
   RELEVANT_EXPERIENCE,
