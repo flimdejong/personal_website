@@ -18,6 +18,7 @@ import {
   BLOG_POSTS,
   EMAIL,
   SOCIAL_LINKS,
+  RELEVANT_EXPERIENCE,
 } from './data'
 
 const VARIANTS_CONTAINER = {
@@ -42,6 +43,33 @@ const TRANSITION_SECTION = {
 type ProjectVideoProps = {
   src: string
 }
+
+function renderMarkdownLinks(text: string) {
+  const linkRegex = /\[([^\]]+)\]\(([^)]+)\)/g;
+  const parts = [];
+  let lastIndex = 0;
+  let match;
+
+  while ((match = linkRegex.exec(text)) !== null) {
+    parts.push(text.slice(lastIndex, match.index));
+    parts.push(
+      <a
+        key={match.index}
+        href={match[2]}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="underline text-blue-500 hover:text-blue-700 dark:text-blue-400 dark:hover:text-blue-300"
+      >
+        {match[1]}
+      </a>
+    );
+    lastIndex = match.index + match[0].length;
+  }
+
+  parts.push(text.slice(lastIndex));
+  return <>{parts}</>;
+}
+
 
 function ProjectVideo({ src }: ProjectVideoProps) {
   return (
@@ -137,11 +165,38 @@ export default function Personal() {
       >
         <div className="flex-1">
           <p className="text-zinc-600 dark:text-zinc-400">
-            Focused on creating intuitive and performant web experiences.
-            Bridging the gap between design and development.
+            Hi! I’m Flim, a robotics student specializing in software and AI.
+            I love building autonomous robotic systems, with a focus on developing the high-level autonomy. 
           </p>
         </div>
       </motion.section>
+
+      <motion.section
+        variants={VARIANTS_SECTION}
+        transition={TRANSITION_SECTION}
+      >
+        <h3 className="mb-5 text-lg font-medium">Tools & Tech</h3>
+        <div className="flex flex-wrap gap-3">
+          {[
+            "ROS",
+            "Reinforcement Learning",
+            "Vision-Language-Action Models",
+            "Computer Vision",
+            "Machine Learning",
+            "Mujoco (MJX)",
+            "Python",
+            "C++",
+          ].map((skill) => (
+            <span
+              key={skill}
+              className="inline-block rounded-full bg-zinc-100 px-3 py-1 text-sm font-medium text-zinc-800 dark:bg-zinc-800 dark:text-zinc-200"
+            >
+              {skill}
+            </span>
+          ))}
+        </div>
+      </motion.section>
+
 
       <motion.section
         variants={VARIANTS_SECTION}
@@ -156,15 +211,30 @@ export default function Personal() {
               </div>
               <div className="px-1">
                 <a
-                  className="font-base group relative inline-block font-[450] text-zinc-900 dark:text-zinc-50"
+                  className="font-base group relative inline-flex items-center gap-1 font-[450] text-zinc-900 dark:text-zinc-50"
                   href={project.link}
                   target="_blank"
                 >
                   {project.name}
+                  {/* Link icon */}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-3.5 w-3.5 opacity-60 group-hover:opacity-100"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
+                    />
+                  </svg>
                   <span className="absolute bottom-0.5 left-0 block h-[1px] w-full max-w-0 bg-zinc-900 dark:bg-zinc-50 transition-all duration-200 group-hover:max-w-full"></span>
                 </a>
                 <p className="text-base text-zinc-600 dark:text-zinc-400">
-                  {project.description}
+                  {renderMarkdownLinks(project.description)}
                 </p>
               </div>
             </div>
@@ -172,13 +242,14 @@ export default function Personal() {
         </div>
       </motion.section>
 
+
       <motion.section
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
       >
-        <h3 className="mb-5 text-lg font-medium">Work Experience</h3>
+        <h3 className="mb-5 text-lg font-medium">Relevant Experience</h3>
         <div className="flex flex-col space-y-2">
-          {WORK_EXPERIENCE.map((job) => (
+          {RELEVANT_EXPERIENCE.map((job) => (
             <a
               className="relative overflow-hidden rounded-2xl bg-zinc-300/30 p-[1px] dark:bg-zinc-600/30"
               href={job.link}
@@ -210,7 +281,7 @@ export default function Personal() {
         </div>
       </motion.section>
 
-      <motion.section
+      {/* <motion.section
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
       >
@@ -244,7 +315,7 @@ export default function Personal() {
             ))}
           </AnimatedBackground>
         </div>
-      </motion.section>
+      </motion.section> */}
 
       <motion.section
         variants={VARIANTS_SECTION}
